@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Redes de Datos (Fabian Cardenas 30.364.637 )</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0f1e, #03060c);
+            color: #eef2ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1422;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2dd4bf;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero con efecto glassmorphism */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(45,212,191,0.08) 0%, rgba(0,0,0,0) 70%);
+            animation: pulseGlow 8s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; transform: scale(1);}
+            100% { opacity: 0.8; transform: scale(1.2);}
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            padding: 2rem;
+            border-radius: 48px;
+            background: rgba(10, 15, 30, 0.4);
+            border: 1px solid rgba(45,212,191,0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff, #2dd4bf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #cbd5e6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Secciones generales */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid rgba(45,212,191,0.15);
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            background: linear-gradient(120deg, #fff, #2dd4bf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left: 6px solid #2dd4bf;
+            padding-left: 20px;
+        }
+
+        /* Tarjetas de conceptos */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(18, 25, 45, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid rgba(45,212,191,0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #2dd4bf;
+            box-shadow: 0 20px 35px -12px rgba(45,212,191,0.3);
+            background: rgba(25, 35, 60, 0.8);
+        }
+
+        .card h3 {
+            font-size: 1.7rem;
+            color: #2dd4bf;
+            margin-bottom: 16px;
+        }
+
+        .card p, .card li {
+            color: #cdd9ff;
+        }
+
+        .badge {
+            background: #1e2a3a;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #2dd4bf;
+            font-weight: 600;
+        }
+
+        /* Tabla estilizada */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 24px;
+            background: rgba(10, 15, 28, 0.6);
+            padding: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(18, 25, 45, 0.5);
+            border-radius: 24px;
+        }
+
+        th, td {
+            padding: 16px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(45,212,191,0.2);
+        }
+
+        th {
+            background: #0f172ae0;
+            color: #2dd4bf;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        tr:hover {
+            background: rgba(45,212,191,0.08);
+        }
+
+        /* Listas técnicas */
+        .tech-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+        .tech-list li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+        .tech-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #2dd4bf;
+        }
+
+        /* Footer */
+        footer {
+            background: #03060c;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #2dd4bf30;
+            font-size: 0.9rem;
+        }
+
+        /* responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+            .card h3 { font-size: 1.4rem; }
+            section { padding: 50px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="container hero-content">
+            <h1>🌐 Redes de Datos</h1>
+            <p>Conceptos fundamentales para ingeniería — Puertos, Sockets, Ethernet, Wi‑Fi y modos de transmisión</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- SECCIÓN 1: Puertos + Socket -->
+        <section>
+            <h2 class="section-title">🔌 Puertos de red & Sockets</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📡 Puertos físicos</h3>
+                    <ul class="tech-list">
+                        <li><strong>RJ-45</strong> – Ethernet estándar</li>
+                        <li><strong>SFP/SFP+</strong> – Fibra óptica</li>
+                        <li><strong>Puerto consola</strong> – Configuración inicial</li>
+                    </ul>
+                    <h3 style="margin-top: 20px;">🧠 Puertos lógicos</h3>
+                    <ul class="tech-list">
+                        <li><strong>0–1023</strong> (Conocidos): HTTP(80), HTTPS(443), SSH(22)</li>
+                        <li><strong>1024–49151</strong> (Registrados): MySQL(3306), SQL Server(1433)</li>
+                        <li><strong>49152–65535</strong> (Dinámicos): asignación temporal</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🔗 Socket</h3>
+                    <p><strong>Definición:</strong> <span class="badge">IP + Puerto</span> — Punto final de comunicación bidireccional.</p>
+                    <ul class="tech-list">
+                        <li>Identificación única</li>
+                        <li>Protocolo TCP o UDP</li>
+                        <li>Estados: Escuchando, Establecido, Cerrado</li>
+                    </ul>
+                    <p style="margin-top: 12px;">Ejemplo: <code style="background:#1e293b; padding:4px 8px; border-radius:12px;">192.168.1.10:443</code></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: IEEE 802.3 (Ethernet) -->
+        <section>
+            <h2 class="section-title">📀 IEEE 802.3 · Ethernet</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📌 Estándar por cable</h3>
+                    <p>Define redes LAN con acceso al medio (CSMA/CD).</p>
+                    <ul class="tech-list">
+                        <li><strong>10BASE-T</strong> → 10 Mbps / UTP</li>
+                        <li><strong>100BASE-TX</strong> → Fast Ethernet (100 Mbps)</li>
+                        <li><strong>1000BASE-T</strong> → Gigabit (1 Gbps) Cat5e/6</li>
+                        <li><strong>10GBASE-SR</strong> → 10 Gbps / fibra multimodo</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>⚡ Medios físicos</h3>
+                    <ul class="tech-list">
+                        <li>Par trenzado (UTP/STP)</li>
+                        <li>Fibra óptica multimodo/monomodo</li>
+                        <li>Categorías: Cat5e, Cat6, Cat6a</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: IEEE 802.11 (Wi-Fi) + Tabla comparativa -->
+        <section>
+            <h2 class="section-title">📡 IEEE 802.11 · Wi-Fi</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📶 Banderas técnicas</h3>
+                    <ul class="tech-list">
+                        <li><strong>802.11b/g</strong> → 2.4 GHz</li>
+                        <li><strong>802.11n (Wi-Fi 4)</strong> → MIMO</li>
+                        <li><strong>802.11ac (Wi‑Fi 5)</strong> → 5 GHz / altas velocidades</li>
+                        <li><strong>802.11ax (Wi‑Fi 6)</strong> → alta densidad + eficiencia</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🌊 Ondas de radio</h3>
+                    <p>Bandas: 2.4 GHz, 5 GHz y 6 GHz (Wi‑Fi 6E).</p>
+                </div>
+            </div>
+
+            <!-- Tabla de métodos de transmisión -->
+            <div style="margin-top: 50px;">
+                <h3 style="color:#2dd4bf; margin-bottom: 20px;">📊 Tabla: Métodos de transmisión de datos</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>Método</th><th>Descripción</th><th>Ejemplo típico</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Unicast</strong> (1 a 1)</td><td>Emisor → receptor específico</td><td>Navegar por una web</td></tr>
+                            <tr><td><strong>Broadcast</strong> (1 a todos)</td><td>Todos los dispositivos de la subred</td><td>ARP, DHCP discovery</td></tr>
+                            <tr><td><strong>Multicast</strong> (1 a muchos)</td><td>Grupo específico de interesados</td><td>Streaming video / videoconferencia</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Realizado Por Fabian Cardenas, Estudiante de Ingeniería de Sistemas En La UNEFA</p>
+        <p style="margin-top: 10px; opacity:0.7;">© 2026 · Material para ingeniería</p>
+    </footer>
+</body>
+</html>
